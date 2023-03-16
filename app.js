@@ -35,7 +35,10 @@ OPENAI_COMPLETIONS_ALLOW_WORDS = 1500 // ~75% MAX TOKEN
 let conversation = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly."
 async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
     console.log("requestGetOpenAIMsgForChatBot ")
-    user_name = user_name.split(".")[0];
+    if(user_name) {
+        user_name = user_name.split(".")[0];
+    }
+    
     let question = "\nHuman:" + input_question + "\nAI:"
     conversation = conversation + question
 
@@ -86,9 +89,10 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
 async function sendMessageToMM(msg, user_name) {
     let fullMsg = ""
     if (user_name) {
-        fullMsg = msg
-    } else {
         fullMsg = "**" + user_name +": **" + input_question + msg
+        
+    } else {
+        fullMsg = msg
     }
     console.log("sendMessageToMM")
     console.log("fullMsg=" + fullMsg)
