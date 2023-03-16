@@ -64,7 +64,7 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
 
             console.log("end conversation=" + conversation)
 
-            let messageMM = "\n****" + res
+            let messageMM = "\n" + res
             res = await sendMessageToMM(messageMM, user_name, input_question)
             console.log("requestGetOpenAIMsgForChatBot get done")
             return res
@@ -72,13 +72,13 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
         } catch (error) {
             console.log("requestGetOpenAIMsgForChatBot get error")
             console.log(error)
-            let messageMM = "\n****" + "Sorry, request Failed"
+            let messageMM = "\n" + "Sorry, request Failed"
             res = await sendMessageToMM( messageMM, user_name, input_question)            
             return res
         }
     } else {
         conversation = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly."
-        let messageMM = "\n****" + "Rất tiếc, tôi không thể nhớ được tất cả những gì bạn nói, tôi đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
+        let messageMM = "\n" + "Rất tiếc, tôi không thể nhớ được tất cả những gì bạn nói, tôi đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
         await sendMessageToMM( messageMM, user_name, input_question)
         return "ok and clear conversation"
     }
