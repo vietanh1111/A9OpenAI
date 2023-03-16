@@ -97,8 +97,9 @@ async function sendMessageToMM(msg, user_name, questtion) {
     console.log("sendMessageToMM")
     console.log("fullMsg=" + fullMsg)
     let req_method = "POST"
-    let req_url = "https://chat.gameloft.org/hooks/enpytjdkniyj5xkthd6f7dcpqr"
-    //let req_url = "https://chat.gameloft.org/hooks/nw81wo1bc3rjzq5jrmpyeztd3o"
+    let req_url = "https://chat.gameloft.org/hooks/g15ckxftytdedmpx7kkni3gpkh"
+    // let req_url = "https://chat.gameloft.org/hooks/enpytjdkniyj5xkthd6f7dcpqr"
+    // let req_url = "https://chat.gameloft.org/hooks/nw81wo1bc3rjzq5jrmpyeztd3o"
     // let req_url = "https://chat.gameloft.org/hooks/63gsjdxiy7drug4bpouo6rd7ir"
     
     let req_data = JSON.stringify({
