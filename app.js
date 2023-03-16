@@ -121,7 +121,7 @@ app.post('/doChatOpenAI_slash', function (req, res) {
             let user_name = params.user_name;
             let response = await requestGetOpenAIMsgForChatBot(question, user_name)
             console.log("DONE")
-            res.end(response)
+            //res.end(response)
         })
     }
 })
