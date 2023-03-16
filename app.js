@@ -32,7 +32,7 @@ app.use(function (req, res, next) {
 
 OPENAI_COMPLETIONS_MAX_TOKEN = 2000
 OPENAI_COMPLETIONS_ALLOW_WORDS = 1500 // ~75% MAX TOKEN
-let conversation = "The following is a conversation with an AI assistant. The assistant have 200-IQ, is helpful, creative, clever, and very friendly."
+let conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful, creative, clever, and very friendly."
 async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
     console.log("requestGetOpenAIMsgForChatBot ")
     if(user_name) {
@@ -77,7 +77,7 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
             return res
         }
     } else {
-        conversation = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly."
+        conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful, creative, clever, and very friendly."
         let messageMM = "\n" + "Rất tiếc, tôi không thể nhớ được tất cả những gì bạn nói, tôi đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
         await sendMessageToMM( messageMM, user_name, input_question)
         return "ok and clear conversation"
