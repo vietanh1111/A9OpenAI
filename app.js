@@ -134,14 +134,16 @@ app.post('/doChatOpenAI_ow', function (req, res) {
             console.log("doChatOpenAI for the data")
             console.log(data)
             jsonData = JSON.parse(data)
-
-            if (jsonData.text.toLowerCase().startsWith("hoodwink chat:")) {
+            
+            if (jsonData["text"].toLowerCase().startsWith("hoodwink chat:")) {
+                console.log("start 1")
                 let regex = /hoodwink chat:/gi;
                 let question = jsonData.text.replace(regex, "");
                 let response = await requestGetOpenAIMsgForChatBot(question)
                 console.log("DONE")
                 res.end(response)
             } else {
+                console.log("start 2")
                 res.end("doChatOpenAI nothing")
             }
         })
