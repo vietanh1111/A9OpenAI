@@ -65,7 +65,7 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
             console.log("end conversation=" + conversation)
 
             let messageMM = "\n**Trang Clone: **" + res
-            res = await sendMessageToMM(input_question + messageMM, user_name)
+            res = await sendMessageToMM(messageMM, user_name, input_question)
             console.log("requestGetOpenAIMsgForChatBot get done")
             return res
 
@@ -73,23 +73,23 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
             console.log("requestGetOpenAIMsgForChatBot get error")
             console.log(error)
             let messageMM = "\n**Trang Clone: **" + "Sorry, request Failed"
-            res = await sendMessageToMM(input_question + messageMM, user_name)            
+            res = await sendMessageToMM( messageMM, user_name, input_question)            
             return res
         }
     } else {
         conversation = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly."
         let messageMM = "\n**Trang Clone: **" + "Rất tiếc, tôi không thể nhớ được tất cả những gì bạn nói, tôi đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
-        await sendMessageToMM(input_question + messageMM, user_name)
+        await sendMessageToMM( messageMM, user_name, input_question)
         return "ok and clear conversation"
     }
 
 }
 
 
-async function sendMessageToMM(msg, user_name) {
+async function sendMessageToMM(msg, user_name, questtion) {
     let fullMsg = ""
     if (user_name) {
-        fullMsg = "**" + user_name +": **"  + msg
+        fullMsg = "**" + user_name +": **"  + questtion + msg
         
     } else {
         fullMsg = msg
