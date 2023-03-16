@@ -35,7 +35,6 @@ OPENAI_COMPLETIONS_ALLOW_WORDS = 1500 // ~75% MAX TOKEN
 let conversation = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly."
 async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
     console.log("requestGetOpenAIMsgForChatBot ")
-
     user_name = user_name.split(".")[0];
     let question = "\nHuman:" + input_question + "\nAI:"
     conversation = conversation + question
@@ -62,37 +61,45 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
 
             console.log("end conversation=" + conversation)
 
-            let messageMM = "**" + user_name +": **" + input_question + "\n**Trang Clone: **" + res
-            res = await sendMessageToMM(messageMM)
+            let messageMM = "\n**Trang Clone: **" + res
+            res = await sendMessageToMM(messageMM, user_name)
             console.log("requestGetOpenAIMsgForChatBot get done")
             return res
 
         } catch (error) {
             console.log("requestGetOpenAIMsgForChatBot get error")
             console.log(error)
-            let messageMM = "**" + user_name +": **" + input_question + "\n**Trang Clone: **" + "Sorry, request Failed"
-            res = await sendMessageToMM(messageMM)            
+            let messageMM = "\n**Trang Clone: **" + "Sorry, request Failed"
+            res = await sendMessageToMM(messageMM, user_name)            
             return res
         }
     } else {
         conversation = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly."
-        let messageMM = "**" + user_name +": **" + input_question + "\n**Trang Clone: **" + "Rất tiếc, tôi không thể nhớ được tất cả những gì bạn nói, tôi đang xóa ký ức và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
-        await sendMessageToMM(messageMM)
+        let messageMM = "\n**Trang Clone: **" + "Rất tiếc, tôi không thể nhớ được tất cả những gì bạn nói, tôi đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
+        await sendMessageToMM(messageMM, user_name)
         return "ok and clear conversation"
     }
 
 }
 
-async function sendMessageToMM(msg) {
+
+async function sendMessageToMM(msg, user_name) {
+    let fullMsg = ""
+    if (user_name) {
+        fullMsg = msg
+    } else {
+        fullMsg = "**" + user_name +": **" + input_question + msg
+    }
     console.log("sendMessageToMM")
+    console.log("fullMsg=" + fullMsg)
     let req_method = "POST"
     let req_url = "https://chat.gameloft.org/hooks/enpytjdkniyj5xkthd6f7dcpqr"
     //let req_url = "https://chat.gameloft.org/hooks/nw81wo1bc3rjzq5jrmpyeztd3o"
     // let req_url = "https://chat.gameloft.org/hooks/63gsjdxiy7drug4bpouo6rd7ir"
     
     let req_data = JSON.stringify({
-        text: msg,
-        user_name: "anh.nguyenviet6"
+        text: fullMsg
+        // user_name: "anh.nguyenviet6"
     })
     let result = await getRequestResponse(req_method, req_url, req_data)
     return result
@@ -122,8 +129,8 @@ app.post('/doChatOpenAI_ow', function (req, res) {
             console.log("doChatOpenAI for the data")
             console.log(data)
             jsonData = JSON.parse(data)
-            if (jsonData.text.startsWith("OpenAI Chat:")) {
-                let question = jsonData.text.replace('OpenAI Chat:', '');
+            if (jsonData.text.startsWith("Hoodwind Chat:")) {
+                let question = jsonData.text.replace('Hoodwind Chat:', '');
                 let response = await requestGetOpenAIMsgForChatBot(question)
                 console.log("DONE")
                 res.end(response)
