@@ -35,10 +35,10 @@ OPENAI_COMPLETIONS_ALLOW_WORDS = 1500 // ~75% MAX TOKEN
 let conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful, creative, clever, and very friendly."
 async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
     console.log("requestGetOpenAIMsgForChatBot ")
-    if(user_name) {
+    if (user_name) {
         user_name = user_name.split(".")[0];
     }
-    
+
     let question = "\nHuman:" + input_question + "\nAI:"
     conversation = conversation + question
 
@@ -72,14 +72,14 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
         } catch (error) {
             console.log("requestGetOpenAIMsgForChatBot get error")
             console.log(error)
-            let messageMM = "\n" + "Sorry, request Failed"
-            res = await sendMessageToMM( messageMM, user_name, input_question)            
+            let messageMM = "\n" + "Em mệt quá, nghỉ tí nhé"
+            res = await sendMessageToMM(messageMM, user_name, input_question)
             return res
         }
     } else {
         conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful, creative, clever, and very friendly."
         let messageMM = "\n" + "Rất tiếc, tôi không thể nhớ được tất cả những gì bạn nói, tôi đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
-        await sendMessageToMM( messageMM, user_name, input_question)
+        await sendMessageToMM(messageMM, user_name, input_question)
         return "ok and clear conversation"
     }
 
@@ -89,8 +89,8 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
 async function sendMessageToMM(msg, user_name, questtion) {
     let fullMsg = ""
     if (user_name) {
-        fullMsg = "**" + user_name +": **"  + questtion + msg
-        
+        fullMsg = "**" + user_name + ": **" + questtion + msg
+
     } else {
         fullMsg = msg
     }
@@ -101,7 +101,7 @@ async function sendMessageToMM(msg, user_name, questtion) {
     // let req_url = "https://chat.gameloft.org/hooks/enpytjdkniyj5xkthd6f7dcpqr"
     // let req_url = "https://chat.gameloft.org/hooks/nw81wo1bc3rjzq5jrmpyeztd3o"
     // let req_url = "https://chat.gameloft.org/hooks/63gsjdxiy7drug4bpouo6rd7ir"
-    
+
     let req_data = JSON.stringify({
         text: fullMsg
         // user_name: "anh.nguyenviet6"
@@ -134,7 +134,7 @@ app.post('/doChatOpenAI_ow', function (req, res) {
             console.log("doChatOpenAI for the data")
             console.log(data)
             jsonData = JSON.parse(data)
-            
+
             if (jsonData["text"].toLowerCase().startsWith("hoodwink chat:")) {
                 console.log("start 1")
                 let regex = /hoodwink chat:/gi;
