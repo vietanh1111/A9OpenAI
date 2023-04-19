@@ -81,7 +81,8 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
         user_name = user_name.split(".")[0];
     }
 
-    let question = "\nHuman:" + input_question + "\nAI:"
+    // let question = "\nHuman:" + input_question + "\nAI:"
+    let question = "\nHuman:" + input_question + "\n" + user_name + ":"
     conversation = conversation + question
 
     console.log("begin conversation=" + conversation)
@@ -95,7 +96,7 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
             top_p: 1,
             frequency_penalty: 0.0,
             presence_penalty: 0.6,
-            stop: [" Human:", " AI:"],
+            // stop: [" Human:", " AI:"],
         }
 
         try {
