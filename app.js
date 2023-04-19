@@ -108,7 +108,7 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
             console.log("end conversation=" + conversation)
 
             let messageMM = "\n" + res
-            res = await sendMessageToMM(messageMM, user_name, input_question)
+            res = await sendMessageToMM(messageMM, null, input_question)
             console.log("requestGetOpenAIMsgForChatBot get done")
             return res
 
@@ -116,14 +116,14 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
             console.log("requestGetOpenAIMsgForChatBot get error")
             console.log(error)
             error_messageMM = end_mood
-            res = await sendMessageToMM(error_messageMM, user_name, input_question)
+            res = await sendMessageToMM(error_messageMM, null, input_question)
             setMood()
             return res
         }
     } else {
         conversation = start_conversation
         let messageMM = "\n" + "Rất tiếc, em không thể nhớ được tất cả, em đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
-        await sendMessageToMM(messageMM, user_name, input_question)
+        await sendMessageToMM(messageMM, null, input_question)
         setMood()
         return "ok and clear conversation"
     }
@@ -184,7 +184,8 @@ app.post('/doChatOpenAI_ow', function (req, res) {
                 console.log("start 1")
                 let regex = /hoodwink chat:/gi;
                 let question = jsonData.text.replace(regex, "");
-                let response = await requestGetOpenAIMsgForChatBot(question)
+                let user_name = jsonData.user_name;
+                let response = await requestGetOpenAIMsgForChatBot(question, user_name)
                 console.log("DONE")
                 res.end(response)
             } else {
