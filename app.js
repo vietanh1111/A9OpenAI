@@ -16,10 +16,10 @@ var ENV_SERVER = "https://demo-deploy-app-01.onrender.com/"
 const Configuration = openai.Configuration;
 const OpenAIApi = openai.OpenAIApi;
 
-let key = "sk-Tp815v9uHGarCGUZaiaYT3BlbkFJGPevISzb1QPQl3mn"
-let key2 = "yf6M"
+let key = "sk-asS9galzYYC5UMA7L9GwT3BlbkFJoIVxm7rWdozCwBKD"
+let key2 = "kS6F"
 const configuration = new Configuration({
-    organization: "org-CRiQQAzspLWvwU6Y0yOeZsjc",
+    organization: "org-2o8ObxPxH4WWOZtnUCmqrMEL",
     apiKey: key + key2,
 });
 const openaiObj = new OpenAIApi(configuration);
