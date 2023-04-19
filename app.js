@@ -4,7 +4,7 @@ const openai = require("openai");
 const express = require('express');
 const queryString = require('querystring');
 
-let start_conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful. Tu is our boss."
+let start_conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful. Tu(tu.hoanganh) is our boss. Trang(trang.phamthiminh2) is the best friend of the assistant. The first time the assistant see Trang, the assistant will say hello to her. "
 let start_mood = ""
 let end_mood = ""
 function setMood() {
