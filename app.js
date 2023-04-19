@@ -4,6 +4,48 @@ const openai = require("openai");
 const express = require('express');
 const queryString = require('querystring');
 
+let start_conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful."
+let start_mood = ""
+let end_mood = ""
+function setMood() {
+    // Create random moods for the bot
+    // Tạo số ngẫu nhiên trong khoảng từ 0 đến 1
+    const randomNumber = Math.random();
+    // Chuyển đổi giá trị ngẫu nhiên thành một số nguyên trong khoảng từ 1 đến 5
+    const randomInteger = Math.floor(randomNumber * 5) + 1;
+    switch (randomInteger) {
+        case 1:
+            mood = "But today, The assistant is very sad because her lover broke up."
+            end_mood = "\n" + "Em mệt quá, nghỉ tí nhé\n :pepe-113: :pepe-113: :pepe-113: "
+            start_conversation = start_conversation + mood;
+            break
+        case 2:
+            mood = "But today, The assistant is very happy because she just got a double salary."
+            end_mood = "\n" + "Em ra ngoài chút, quay lại sau nhé :hugging_face: :hugging_face: :hugging_face:  "
+            start_conversation = start_conversation + mood;
+            break
+        case 3:
+            mood = "But today, The assistant is very happy because she just bought a cat."
+            end_mood = "\n" + "Em đi ăn chút ạ :hugging_face: :hugging_face: :hugging_face:  "
+            start_conversation = start_conversation + mood;
+            break
+        case 4:
+            mood = "But today, The assistant is very sad because it is raining today."
+            end_mood = "\n" + "Em ra ngoài chút, quay lại sau nhé :hugging_face: :hugging_face: :hugging_face:  "
+            start_conversation = start_conversation + mood;
+            break
+        case 5:
+            mood = "But today, The assistant is very sad because Trang doesn't play with her."
+            end_mood = "\n" + "Em mệt quá, nghỉ tí nhé\n :pepe-113: :pepe-113: :pepe-113: "
+            start_conversation = start_conversation + mood;
+            break
+    }
+}
+setMood()
+
+
+
+
 var app = express();
 
 
@@ -32,7 +74,7 @@ app.use(function (req, res, next) {
 
 OPENAI_COMPLETIONS_MAX_TOKEN = 2000
 OPENAI_COMPLETIONS_ALLOW_WORDS = 1500 // ~75% MAX TOKEN
-let conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful, creative, clever, and very friendly."
+let conversation = start_conversation
 async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
     console.log("requestGetOpenAIMsgForChatBot ")
     if (user_name) {
@@ -72,14 +114,16 @@ async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
         } catch (error) {
             console.log("requestGetOpenAIMsgForChatBot get error")
             console.log(error)
-            let messageMM = "\n" + "Em mệt quá, nghỉ tí nhé"
-            res = await sendMessageToMM(messageMM, user_name, input_question)
+            error_messageMM = end_mood
+            res = await sendMessageToMM(error_messageMM, user_name, input_question)
+            setMood()
             return res
         }
     } else {
-        conversation = "The following is a conversation with an AI assistant. The name of the assistant is Hoodwink. The assistant have 200-IQ, is helpful, creative, clever, and very friendly."
-        let messageMM = "\n" + "Rất tiếc, tôi không thể nhớ được tất cả những gì bạn nói, tôi đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
+        conversation = start_conversation
+        let messageMM = "\n" + "Rất tiếc, em không thể nhớ được tất cả, em đang xóa ký ức của mình và chúng ta sẽ bắt đầu lại nha :hugging_face: :hugging_face: :hugging_face: "
         await sendMessageToMM(messageMM, user_name, input_question)
+        setMood()
         return "ok and clear conversation"
     }
 
@@ -155,7 +199,7 @@ app.post('/resetConversation', function (req, res) {
         req.on('data', async function (data) {
             data = data.toString()
             console.log("resetConversation for the data")
-            conversation = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly."
+            conversation = start_conversation
 
 
             res.end("resetConversation done")
