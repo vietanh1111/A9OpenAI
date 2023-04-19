@@ -77,12 +77,12 @@ OPENAI_COMPLETIONS_ALLOW_WORDS = 1500 // ~75% MAX TOKEN
 let conversation = start_conversation
 async function requestGetOpenAIMsgForChatBot(input_question, user_name) {
     console.log("requestGetOpenAIMsgForChatBot ")
-    if (user_name) {
-        user_name = user_name.split(".")[0];
-    }
+    // if (user_name) {
+    //     user_name = user_name.split(".")[0];
+    // }
 
+    let question = "\n"+ user_name + ":" + input_question + "\nAI:"
     // let question = "\nHuman:" + input_question + "\nAI:"
-    let question = "\nHuman:" + input_question + "\n" + user_name + ":"
     conversation = conversation + question
 
     console.log("begin conversation=" + conversation)
